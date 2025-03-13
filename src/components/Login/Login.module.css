@@ -1,0 +1,70 @@
+.container {
+    max-width: 400px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.inputs  input {
+    /* width: 80%; */
+    width: 330px;
+    padding: 15px;
+    margin: 5px 0;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.inputs  .warner {
+    border: 1px solid red;
+}
+
+.inputs  input:focus {
+    border: 1px solid #0866ff;
+    outline: none;
+}
+
+.input_container {
+    position: relative;
+    display: inline-block;
+}
+
+.input_container > svg {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.open, .close {
+    cursor: pointer;
+}
+
+.actions > button {
+    width: 80%;
+    padding: 10px;
+    background-color: #0866ff;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.actions > button:last-child {
+    width: 50%;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #42b72a;
+}
+
+.actions > button:first-child:hover {
+    background-color: #1f75ff;
+}
+
+.actions > button:last-child:hover {
+    background-color: #3b9728;
+}
