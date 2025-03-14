@@ -1,7 +1,4 @@
-import React from 'react'
-import style from "./LoginInputs.module.css"
-
-const LoginInputs = ({className, type, value, onChange, onBlur, placeholder}) => {
+const Inputs = ({className, type, value, onChange, onBlur, placeholder, name}) => {
   return (
     <>
       <input 
@@ -11,9 +8,10 @@ const LoginInputs = ({className, type, value, onChange, onBlur, placeholder}) =>
         onChange={onChange} 
         onBlur={onBlur} 
         placeholder={placeholder}
+        name={name}
       />
     </>
   )
 }
 
-export default LoginInputs
+export default Inputs

@@ -1,112 +1,78 @@
-import React, {useState} from 'react'
-import CreateAccount from "../CreateAccount/CreateAccount";
-import UserInfo from "../UserInfo/UserInfo";
-import LoginInputs from "./LoginInputs/LoginInputs";
-import { FaEyeSlash } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
+import { CreateAccount, UserInfo, Inputs, FaEyeSlash, IoEyeSharp, Formik, validiationSchema } from "../index"
+import React, { useState } from 'react'
 import style from "./Login.module.css"
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
     const [account, setAccount] = useState(false);
+    const [user, setUser] = useState(false); 
 
-    const [emailErr, setEmailErr] = useState(false);
-    const [passErr, setPassErr] = useState(false);
+    const [data, setData] = useState([]);
 
-    const [showPass, setShowPass] = useState(false);
-    const [newData, setNewData] = useState([]);
-
-    const [userInfo, setUserInfo] = useState(false);
-    const [userName, setUserName] = useState("");
-    const [userLastName, setUserLastName] = useState("");
-    const [userEmail, setUserEmail] = useState("");
-
-    const submit = (e) => {
-        e.preventDefault();
-    }
-
-    const changeEmail = (e) => {
-        setEmail(e.target.value);
-        setEmailErr(false)
-    }
-
-    const changePassword = (e) => {
-        setPassword(e.target.value);
-        setPassErr(false)
-    }
-
-    const login = (prevData, newData) => {
-        const newUpdateDate = [...prevData, ...newData];
-        newUpdateDate.map((elem) => {
-            if(email === elem.email && password === elem.password)  {
-                setUserInfo(true)
-                setUserName(elem.name)
-                setUserLastName(elem.lastName)
-                setUserEmail(elem.email)
+    const login = (values) => {
+        data.find((elem) => {
+            if(elem.email == values.email && elem.password == values.password) {
+                setUser(true)
             }
-        }) 
-        setEmailErr(true)
-        setPassErr(true)
-
-        return newUpdateDate
+        })
     }
 
     const newAccount = (data) => {
         setAccount(prev => !prev)
         if (Array.isArray(data)) {
-            const updateData = login(newData, data);
-            setNewData(updateData);
+            setData(data)
         }
-    }
-
-    const changeEmailErr = () => {
-        !email && setEmailErr(true)
-    }
-
-    const changePassErr = () => {
-        !password && setPassErr(true)
-    }
-
-    const changeShowPass = () => {
-        setShowPass(!showPass)
     }
 
     return (
         <div className={style.login}>
             {account ? <CreateAccount newAccount={newAccount} /> : null}
-            {userInfo ?<UserInfo name={userName} lastName={userLastName} email={userEmail} /> : null}
-            <form className={style.container} onSubmit={submit}>
-                <div className={style.inputs}>
-                    <LoginInputs 
-                        className={emailErr ? style.warner : null}
-                        value={email}
-                        onChange={changeEmail}
-                        onBlur={changeEmailErr}
-                        placeholder="Email"
-                    />
-
-                    <div className={style.input_container}>
-                        <LoginInputs 
-                            className={passErr ? style.warner : null}
-                            type={showPass ? "text" : "password"}
-                            value={password}
-                            onChange={changePassword}
-                            onBlur={changePassErr}
-                            placeholder="Password"
-                        />
-                        {
-                            showPass 
-                            ? <IoEyeSharp className={style.open} onClick={changeShowPass}/>
-                            : <FaEyeSlash className={style.close} onClick={changeShowPass} />
-                        }
-                    </div>
-                </div>
-                <div className={style.actions}>
-                    <button onClick={() => login(newData, newData)}>Log In</button>
-                    <button onClick={newAccount} >Create new account</button>
-                </div>
-            </form>
+            {user ?<UserInfo data={data.find((elem) => elem)} /> : null}
+            <Formik
+                initialValues={{
+                    email: "",
+                    password: ""
+                }}
+                onSubmit={(values) => console.log(values)}
+                validationSchema={validiationSchema}
+            >
+                {
+                    ({ values, handleChange, handleSubmit, handleBlur, errors, touched }) => (
+                        <form className={style.container} onSubmit={handleSubmit}>
+                            <div className={style.inputs}>
+                                <Inputs
+                                    className={errors.email && touched.email && style.warner}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                    placeholder="Email"
+                                    name="email"
+                                />
+                                {errors.email && touched.email && <p>{errors.email}</p>}
+                                <div className={style.input_container}>
+                                    <Inputs
+                                        className={errors.password && touched.password && style.warner}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
+                                        placeholder="Password"
+                                        type={show ? "text" : "password"}
+                                        name="password"
+                                    />
+                                    {show
+                                    ? <IoEyeSharp className={style.open} onClick={() => setShow(!show)}/>
+                                    : <FaEyeSlash className={style.close} onClick={() => setShow(!show)} />}
+                                </div>
+                            </div>
+                            <div className={style.actions}>
+                                {errors.password && touched.password && <p>{errors.password}</p>}
+                                <button onClick={() => login(values)} type="submit">Log In</button>
+                                <button onClick={newAccount} >Create new account</button>
+                            </div>
+                        </form>
+                    )
+                }
+            </Formik>
         </div>
     )
 }

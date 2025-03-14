@@ -34,8 +34,9 @@
 
 .create_account > input {
     margin-top: 1rem;
-    width: 80%;
+    width: 450px;
     padding: 15px;
+    display: block;
     font-size: 18px;
     border: 1px solid #ccc;
     border-radius: 5px;

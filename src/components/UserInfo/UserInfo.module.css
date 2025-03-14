@@ -15,6 +15,7 @@
 }
 
 .user_item {
+    padding: 15px;
     border-radius: 6px;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
     text-align: center;

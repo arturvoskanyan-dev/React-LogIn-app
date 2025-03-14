@@ -1,11 +1,12 @@
-import Box from './components/Box/Box'
+import {Intro, Login} from "./components/index"
 import './App.css'
 
 function App() {
   return (
-    <>
-      <Box />
-    </>
+    <div className="box">
+        <Intro />
+        <Login />
+    </div>
   )
 }
 

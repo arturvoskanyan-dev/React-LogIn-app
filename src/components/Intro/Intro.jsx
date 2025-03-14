@@ -1,5 +1,5 @@
-import style from "./intro.module.css"
 import React from 'react'
+import style from "./intro.module.css"
 
 function Intro() {
   return (

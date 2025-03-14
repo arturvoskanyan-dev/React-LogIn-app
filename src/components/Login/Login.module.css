@@ -6,8 +6,12 @@
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
+.container p {
+    color: red;
+    text-align: start;
+}
+
 .inputs  input {
-    /* width: 80%; */
     width: 330px;
     padding: 15px;
     margin: 5px 0;
