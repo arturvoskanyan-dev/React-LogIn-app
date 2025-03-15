@@ -6,6 +6,7 @@ function Login() {
     const [show, setShow] = useState(false);
     const [account, setAccount] = useState(false);
     const [user, setUser] = useState(false); 
+    const [checking, setChecking] = useState(false);
 
     const [data, setData] = useState([]);
 
@@ -13,6 +14,8 @@ function Login() {
         data.find((elem) => {
             if(elem.email == values.email && elem.password == values.password) {
                 setUser(true)
+            } else {
+                setChecking(true)
             }
         })
     }
@@ -40,6 +43,7 @@ function Login() {
                     ({ values, handleChange, handleSubmit, handleBlur, errors, touched }) => (
                         <form className={style.container} onSubmit={handleSubmit}>
                             <div className={style.inputs}>
+                                {checking && <h3>Invalid Email or Password</h3>}
                                 <Inputs
                                     className={errors.email && touched.email && style.warner}
                                     onChange={handleChange}
@@ -63,11 +67,11 @@ function Login() {
                                     ? <IoEyeSharp className={style.open} onClick={() => setShow(!show)}/>
                                     : <FaEyeSlash className={style.close} onClick={() => setShow(!show)} />}
                                 </div>
+                                {errors.password && touched.password && <p>{errors.password}</p>}
                             </div>
                             <div className={style.actions}>
-                                {errors.password && touched.password && <p>{errors.password}</p>}
                                 <button onClick={() => login(values)} type="submit">Log In</button>
-                                <button onClick={newAccount} >Create new account</button>
+                                <button onClick={newAccount} type="button">Create new account</button>
                             </div>
                         </form>
                     )

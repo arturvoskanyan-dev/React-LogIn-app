@@ -6,9 +6,14 @@
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.15);
 }
 
-.container p {
+.container p, .inputs > h3 {
     color: red;
+    font-weight: bold;
     text-align: start;
+}
+
+.inputs > h3 {
+    text-align: center;
 }
 
 .inputs  input {

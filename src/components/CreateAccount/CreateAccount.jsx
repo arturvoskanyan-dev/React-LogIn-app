@@ -17,10 +17,7 @@ function CreateAccount({ newAccount }) {
                         email: "",
                         password: ""
                     }}
-                    onSubmit={(values) => {
-                        const newData = [values];
-                        return newAccount(newData)
-                    }}
+                    onSubmit={(values) => newAccount([values])}
                     validationSchema={validiationSchema}
                 >
                     {

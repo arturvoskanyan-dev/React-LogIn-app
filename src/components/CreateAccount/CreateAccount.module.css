@@ -42,6 +42,12 @@
     border-radius: 5px;
 }
 
+.create_account > p {
+    color: red;
+    font-weight: bold;
+    text-align: start;
+}
+
 .create_account  .warner {
     border: 1px solid red;
 }
