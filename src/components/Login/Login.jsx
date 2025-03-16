@@ -1,4 +1,5 @@
-import { CreateAccount, UserInfo, Inputs, FaEyeSlash, IoEyeSharp, Formik, validiationSchema } from "../index"
+import { CreateAccount, UserInfo, FaEyeSlash, IoEyeSharp, validiationSchema } from "../index"
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useState } from 'react'
 import style from "./Login.module.css"
 
@@ -36,44 +37,37 @@ function Login() {
                     email: "",
                     password: ""
                 }}
-                onSubmit={(values) => console.log(values)}
                 validationSchema={validiationSchema}
             >
                 {
-                    ({ values, handleChange, handleSubmit, handleBlur, errors, touched }) => (
-                        <form className={style.container} onSubmit={handleSubmit}>
+                    ({ values, errors, touched }) => (
+                        <Form className={style.container}>
                             <div className={style.inputs}>
                                 {checking && <h3>Invalid Email or Password</h3>}
-                                <Inputs
+                                <Field
                                     className={errors.email && touched.email && style.warner}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.email}
                                     placeholder="Email"
                                     name="email"
                                 />
-                                {errors.email && touched.email && <p>{errors.email}</p>}
+                                <p><ErrorMessage name="email" /></p>
                                 <div className={style.input_container}>
-                                    <Inputs
+                                    <Field 
                                         className={errors.password && touched.password && style.warner}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.password}
                                         placeholder="Password"
                                         type={show ? "text" : "password"}
                                         name="password"
-                                    />
+                                    /> 
                                     {show
                                     ? <IoEyeSharp className={style.open} onClick={() => setShow(!show)}/>
                                     : <FaEyeSlash className={style.close} onClick={() => setShow(!show)} />}
                                 </div>
-                                {errors.password && touched.password && <p>{errors.password}</p>}
+                                <p><ErrorMessage name="password" /></p>
                             </div>
                             <div className={style.actions}>
                                 <button onClick={() => login(values)} type="submit">Log In</button>
                                 <button onClick={newAccount} type="button">Create new account</button>
                             </div>
-                        </form>
+                        </Form>
                     )
                 }
             </Formik>

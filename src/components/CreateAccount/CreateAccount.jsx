@@ -1,4 +1,5 @@
-import {Inputs, Formik, validiationSchema} from "../index"
+import { Formik, ErrorMessage, Form, Field } from "formik";
+import { validiationSchema } from "../index"
 import style from "./CreateAccount.module.css"
 
 function CreateAccount({ newAccount }) {
@@ -21,50 +22,37 @@ function CreateAccount({ newAccount }) {
                     validationSchema={validiationSchema}
                 >
                     {
-                        ({values, handleChange, handleBlur, handleSubmit, errors, touched}) => (
-                            <form className={style.create_account} onSubmit={handleSubmit}>
-                                <Inputs 
+                        ({ errors, touched }) => (
+                            <Form className={style.create_account}>
+                                <Field
                                     className={errors.name && touched.name && style.warner}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
                                     placeholder="Name"
-                                    value={values.name}
                                     name="name"
                                 />
-                                {errors.name && touched.name && <p>{errors.name}</p>}
-                                <Inputs 
+                                <p><ErrorMessage name="name" /></p>
+                                <Field
                                     className={errors.lastName && touched.lastName && style.warner}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
                                     placeholder="LastName"
-                                    value={values.lastName}
                                     name="lastName"
                                 />
-                                {errors.lastName && touched.lastName && <p>{errors.lastName}</p>}
-                                <Inputs 
+                                <p><ErrorMessage name="lastName" /></p>
+                                <Field
                                     className={errors.email && touched.email && style.warner}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
                                     placeholder="Email"
-                                    value={values.email}
                                     name="email"
                                 />
-                                {errors.email && touched.email && <p>{errors.email}</p>}
-                                <Inputs 
+                                <p><ErrorMessage name="email" /></p>
+                                <Field
                                     className={errors.password && touched.password && style.warner}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
                                     placeholder="Password"
-                                    value={values.password}
                                     type="password"
                                     name="password"
                                 />
-                                {errors.password && touched.password && <p>{errors.password}</p>}
-
+                                <p><ErrorMessage name="password" /></p>
                                 <div className={style.actions}>
                                     <button type="submit">Sign Up</button>
-                                </div>  
-                            </form>
+                                </div>
+                            </Form>
                         )
                     }
                 </Formik>
